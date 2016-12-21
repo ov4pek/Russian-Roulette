@@ -4,18 +4,26 @@ import java.util.Random;
 /**
  * Created by Admin on 20.12.2016.
  */
+
+/**
+ * Lobby
+ */
 public class Room {
+    /**
+     * List of players in the room
+     */
     private ArrayList<ClientThread> players;
     private final int capacityDrum = 6;
     private int countBullet = 5;
     private Random random = new Random();
-//    private int countPlayer;
     private int course = 0;
 
+    /**
+     *Checking: player is alive or not
+     */
     public boolean shot(ClientThread player) {
         for (int i = 0; i < countBullet; i++) {
             if (twistDrum() == i) {
-//                minusPlayer();
                 setCountBullet();
                 players.remove(player);
                 setCourse();
@@ -26,20 +34,15 @@ public class Room {
         return false;
     }
 
+    /**
+     *Return random number from 1 to 6
+     */
     private int twistDrum() {
         return random.nextInt(capacityDrum);
     }
 
-//    public void setCountPlayer(int countPlayer) {
-//        this.countPlayer = countPlayer;
-//    }
-
-//    public void minusPlayer() {
-//        countPlayer--;
-//    }
 
     public int getCountPlayer() {
-//        return countPlayer;
         return players.size();
     }
 
@@ -49,7 +52,6 @@ public class Room {
 
     public synchronized void setCourse() {
         this.course += 1;
-//        if (course == countPlayer) course = 0;
         if (course == players.size()) course = 0;
     }
 
@@ -57,6 +59,9 @@ public class Room {
         this.countBullet -= 1;
     }
 
+    /**
+     *Checking: who has cource right now
+     */
     public boolean checkCourse(String name) {
         if (name.equals(players.get(course).getName())) return true;
         else return false;

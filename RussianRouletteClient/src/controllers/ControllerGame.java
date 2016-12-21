@@ -9,6 +9,10 @@ import javafx.scene.input.MouseEvent;
 /**
  * Created by Admin on 21.12.2016.
  */
+
+/**
+ * class for javaFX which controls GameView
+ */
 public class ControllerGame {
     @FXML
     private Label messageLabel;
@@ -29,7 +33,8 @@ public class ControllerGame {
     @FXML
     private Button btnExit;
     private Label [] players ={labelPlayer1,labelPlayer2,labelPlayer3,labelPlayer4,labelPlayer5,labelPlayer6};
-    private int click =0;
+
+    private int click =0;//check of clicking buttons
 
     @FXML
     public void initialize() {

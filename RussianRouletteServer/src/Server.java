@@ -9,6 +9,12 @@ import java.util.ArrayList;
 /**
  * Created by Admin on 20.12.2016.
  */
+
+/**
+ * To begin the game you should wait 6 players. After that the first connected player to server starts the game.
+ * Everybody in the room should decide for theirselves: to shot or to leave. There are 5 bullets in pistol.
+ * The winner is player who will be alive last.
+ */
 public class Server {
     private static ServerSocket serverSocket;
     private static Socket socket;
@@ -26,7 +32,7 @@ public class Server {
         }
         try {
             while (true) {
-                ArrayList<ClientThread> players = new ArrayList<ClientThread>();
+                ArrayList<ClientThread> players = new ArrayList<ClientThread>(); // list of connected players
                 Room room = new Room();
 
                 while (countPlayers != 6) {
@@ -37,9 +43,7 @@ public class Server {
                     client.setName(String.valueOf(countPlayers));
                     countPlayers++;
                     players.add(client);
-//                    client.start();
                 }
-//                room.setCountPlayer(countPlayers);
                 room.setPlayers(players);
                 for (int i = 0; i <countPlayers ; i++) {
                     players.get(i).setPlayers(players);

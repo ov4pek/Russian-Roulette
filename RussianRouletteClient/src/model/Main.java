@@ -15,10 +15,10 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/GameView.fxml"));
         Parent root = loader.load();
-//        Parent root = FXMLLoader.load(getClass().getResource("../views/GameView.fxml"));
         primaryStage.setTitle("Russian Roulete");
         primaryStage.setScene(new Scene(root, 424, 451));
         primaryStage.show();
+        //Getting access to the ControllerGame
         children =loader.getController();
         SendThread sendThread = new SendThread(children);
         sendThread.start();

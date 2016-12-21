@@ -12,6 +12,10 @@ import java.util.Scanner;
 /**
  * Created by Admin on 21.12.2016.
  */
+
+/**
+ * Thread for game running on client
+ */
 public class SendThread extends Thread {
     private ControllerGame game;
 
@@ -46,13 +50,11 @@ public class SendThread extends Thread {
                 sleep(1000);
             }
             String name = in.readLine();
-            sendMessageToNamePlayer(Integer.valueOf(name), "You");
+            sendMessageToNamePlayer(Integer.valueOf(name), "Ты");
             sendMessageToLabel("Игра начата!");
             while (!(message = in.readLine()).equals("##end##")) {
-
-                System.out.println(message);
+                //Let`s decide what do you want to do
                 if (message.equals("##shot##")) {
-//                    game.setMessageLabel("Твой ход");
                     sendMessageToLabel("Твой ход");
                     while (game.getClick() == 0) {
                         sleep(1000);
@@ -63,24 +65,21 @@ public class SendThread extends Thread {
                         String status = in.readLine();
                         System.out.println(status);
 
+                        //Die or live?
                         if (status.equals("##died##")) {
                             sendMessageToLabel("Тебе не повезло, ты умер!!");
-//                            game.setMessageLabel("Тебе не повезло, ты умер!!");
                         } else if (status.equals("##miss##")) {
-//                            game.setMessageLabel("А ты везунчик!");
                             sendMessageToLabel("А ты везунчик!");
                         }
 
                         game.setClick();
                     } else if (game.getClick() == -1) {
                         out.println("##exit##");
-                        //TODO закрытие потока
                     }
+                    //Messages about lives of opponents
                 } else if (message.equals("##opponent##")) {
                     String number = in.readLine();
-                    System.out.println(number);
                     String status = in.readLine();
-                    System.out.println(status);
                     if (status.equals("##died##")) {
                         sendMessageToNamePlayer(Integer.valueOf(number), "Умер");
                         sendMessageToLabel("Игрок " + (Integer.valueOf(number) + 1) + " погиб");
@@ -95,7 +94,6 @@ public class SendThread extends Thread {
             }
             message = in.readLine();
             if (message.equals("##win##")) ;
-            System.out.println(message);
             sendMessageToLabel("Ты победил!!!");
 
         } catch (IOException e) {
@@ -114,7 +112,7 @@ public class SendThread extends Thread {
             e.printStackTrace();
         }
     }
-
+    //Change messages in javaFX
     public void sendMessageToLabel(final String message) {
         Platform.runLater(new Runnable() {
             @Override
@@ -124,6 +122,7 @@ public class SendThread extends Thread {
         });
     }
 
+    //Change names of the players
     public void sendMessageToNamePlayer(final int number, final String message) {
         Platform.runLater(new Runnable() {
             @Override
