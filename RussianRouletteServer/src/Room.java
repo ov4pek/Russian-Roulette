@@ -52,7 +52,7 @@ public class Room {
 
     public synchronized void setCourse() {
         this.course += 1;
-        if (course == players.size()) course = 0;
+        if (course >= players.size()) course = 0;
     }
 
     public void setCountBullet() {
